@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>index.html — Keith Paddit</title>
+  <meta name="description" content="Keith Paddit — Web Developer and Data Scientist. Portfolio.">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Icon sprite: swap any of these for real icons later -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-html" viewBox="0 0 16 16"><path fill="none" stroke="#e37933" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5.5 4 2 8l3.5 4M10.5 4 14 8l-3.5 4"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 16 16"><path fill="#dcb67a" d="M1.5 3.5A1 1 0 0 1 2.5 2.5h3.6l1.5 1.5h5.9a1 1 0 0 1 1 1v7.5a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-env" viewBox="0 0 16 16"><path fill="none" stroke="#e5c07b" stroke-width="1.4" d="M8 5.6a2.4 2.4 0 1 0 0 4.8 2.4 2.4 0 0 0 0-4.8z"/><path fill="none" stroke="#e5c07b" stroke-width="1.4" stroke-linecap="round" d="M8 1.8v1.7M8 12.5v1.7M1.8 8h1.7M12.5 8h1.7M3.6 3.6l1.2 1.2M11.2 11.2l1.2 1.2M12.4 3.6l-1.2 1.2M4.8 11.2l-1.2 1.2"/></symbol>
+    <symbol id="i-files" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M14 3H7v14h11V7zM14 3v4h4M7 7H4v14h10v-4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="14" cy="10" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M10 14.5 4 20.5"/></symbol>
+    <symbol id="i-branch" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="5" r="2.2"/><circle cx="7" cy="19" r="2.2"/><circle cx="17" cy="9" r="2.2"/><path d="M7 7.2v9.6M17 11.2c0 3.5-10 2-10 5.6"/></g></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M4 9h6v6H4zM4 15h6v6H4zM10 15h6v6h-6zM14 4h6v6h-6z"/></symbol>
+    <symbol id="i-account" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="9" r="3.5"/><path d="M5 20c.8-3.6 3.6-5 7-5s6.200 1.400 7 5"/></g></symbol>
+    <symbol id="i-chevron" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" d="m4 6 4 4 4-4"/></symbol>
+    <symbol id="i-close" viewBox="0 0 16 16"><path stroke="currentColor" stroke-width="1.3" stroke-linecap="round" d="m4.500 4.500 7 7M11.500 4.500l-7 7"/></symbol>
+  </svg>
+
+  <div class="window">
+
+    <!-- ───────── Title bar ───────── -->
+    <header class="titlebar">
+      <div class="titlebar-left">
+        <span class="app-logo"><img src="Assets/VSCode%20Logo.webp" alt=""></span>
+        <ul class="menu" aria-hidden="true">
+          <li>File</li><li>Edit</li><li>Selection</li><li>View</li><li>Go</li><li>Run</li><li>Terminal</li><li>Help</li>
+        </ul>
+        <span class="mobile-title"><span class="tok-comment">❯</span> <span class="dim">~/keith-paddit/</span><span id="mobile-file">index.html</span></span>
+      </div>
+      <div class="command-center" aria-hidden="true">
+        <svg width="14" height="14"><use href="#i-search"/></svg>
+        <span>keith-paddit-portfolio</span>
+      </div>
+      <div class="window-controls" aria-hidden="true">
+        <span>&#x2013;</span><span>&#x25A1;</span><span class="wc-close">&#x2715;</span>
+      </div>
+      <span class="m-status">open to work</span>
+    </header>
+
+    <div class="workbench">
+
+      <!-- ───────── Activity bar ───────── -->
+      <div class="activitybar">
+        <button class="act active" id="toggle-sidebar" title="Explorer" aria-label="Toggle explorer">
+          <svg><use href="#i-files"/></svg>
+        </button>
+        <span class="act" aria-hidden="true"><svg><use href="#i-search"/></svg></span>
+        <span class="act" aria-hidden="true"><svg><use href="#i-branch"/></svg></span>
+        <span class="act" aria-hidden="true"><svg><use href="#i-ext"/></svg></span>
+        <span class="act act-bottom" aria-hidden="true"><svg><use href="#i-account"/></svg></span>
+      </div>
+
+      <!-- ───────── Sidebar / Explorer (desktop nav) ───────── -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-title">Explorer</div>
+        <div class="tree-root">
+          <svg width="16" height="16"><use href="#i-chevron"/></svg>
+          <span>KEITH-PADDIT</span>
+        </div>
+        <nav class="tree" aria-label="Files">
+          <a href="#assets" class="tree-item" data-file="assets">
+            <svg class="tree-chevron" width="16" height="16"><use href="#i-chevron"/></svg>
+            <svg class="file-icon"><use href="#i-folder"/></svg><span>assets</span>
+          </a>
+          <a href="#env" class="tree-item" data-file="env">
+            <svg class="file-icon"><use href="#i-env"/></svg><span>.env</span>
+          </a>
+          <a href="#index" class="tree-item" data-file="index">
+            <svg class="file-icon"><use href="#i-html"/></svg><span>index.html</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- ───────── Editor ───────── -->
+      <main class="editor">
+        <div class="tabs" id="tabs" role="tablist"></div>
+        <div class="breadcrumbs" id="breadcrumbs"></div>
+
+        <div class="panes" id="panes">
+
+          <!-- ============ index.html ============ -->
+          <section class="pane" data-file="index">
+            <div class="page">
+
+              <section class="hero" id="hero">
+                <!-- m-* wrappers use display: contents on desktop, so they only shape the mobile layout -->
+                <div class="m-avatar-row">
+                  <img class="avatar" src="Assets/Professional%20Pic.webp" alt="Keith Martin Paddit">
+                  <p class="m-hero-meta">
+                    <span class="m-now">Developer <span class="tok-punct">@</span> AscendyX</span>
+                    <span>Baguio City, Philippines</span>
+                  </p>
+                </div>
+                <div class="hero-text">
+                  <div class="m-term">
+                    <p class="m-term-bar" aria-hidden="true"><i></i><i></i><i></i><span>zsh — keith@portfolio</span></p>
+                    <p class="m-cmdline" aria-hidden="true"><span class="tok-comment">❯</span> who-am-i</p>
+                    <p class="comment">// who-am-i</p>
+                    <h1>Keith Martin Paddit</h1>
+                    <p class="role">
+                      <span class="tok-tag">Web Developer</span>
+                      <span class="tok-punct">|</span>
+                      <span class="tok-type">Data Scientist</span><span class="cursor"></span>
+                    </p>
+                  </div>
+                  <p class="bio">Baguio-based developer at AscendyX, building websites and web applications, with a Data Science degree from Mapúa University. My thesis modeled salaries for data roles across the Philippines, and I've worked as an AI/ML intern at RCBC.</p>
+                  <div class="edu">
+                    <span class="edu-logo"><img src="Assets/Mapua%20University%20Logo.webp" alt="Mapúa University"></span>
+                    <span>BS Data Science, Mapúa University <span class="dim">· 2022–2025</span></span>
+                  </div>
+                  <div class="actions">
+                    <a class="btn btn-primary" href="#projects" data-scroll="projects">View projects</a>
+                    <a class="btn" href="#env" data-open="env">Contact me</a>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Mobile only: headline numbers up front -->
+              <dl class="m-metrics" aria-label="Highlights">
+                <div><dt>Precision lift on a bank campaign model</dt><dd>&gt;50%</dd></div>
+                <div><dt>Job postings modeled for my thesis</dt><dd>1,057</dd></div>
+                <div><dt>Skills extracted with an LLM</dt><dd>720</dd></div>
+              </dl>
+
+              <section id="projects">
+                <h2><span class="m-cmd">ls</span><span class="tok-punct">&lt;</span>projects<span class="tok-punct"> /&gt;</span></h2>
+
+                <!-- Featured: PH Job Market Analysis -->
+                <article class="project featured">
+                  <div class="project-head">
+                    <div>
+                      <span class="badge badge-ds">Data Science · Thesis</span>
+                      <h3>Skill-Based Salary Prediction for Data Roles in the Philippines</h3>
+                    </div>
+                    <span class="dates">Nov 2024 – Aug 2025</span>
+                  </div>
+                  <p class="project-role">Undergraduate thesis, Mapúa University · Project Lead, Programmer</p>
+                  <ul class="points">
+                    <li>Collected Philippine data job postings from Indeed with Apify over four months (Nov 2024 – Mar 2025), then deduplicated, filtered salaries and normalized titles down to <strong>1,057 salaried postings</strong>.</li>
+                    <li>Used <strong>GPT-4o-mini</strong> to extract and standardize soft and technical skills from unstructured job descriptions, yielding 720 distinct skills.</li>
+                    <li>Grouped 43 job titles into <strong>6 role families</strong> with Sentence-BERT embeddings and K-Means, testing k with silhouette scores.</li>
+                    <li>Compared Linear Regression, Random Forest, LightGBM and XGBoost for predicting min and max salary, with grid search and 5-fold cross-validation. <strong>XGBoost</strong> did best on the held-out test set.</li>
+                    <li>Converted model feature importance into estimated peso values per skill to show which skills go with higher-paying roles.</li>
+                  </ul>
+
+                  <h4 class="comment">// analysis showcase</h4>
+                  <dl class="stats">
+                    <div><dt>Salaried postings</dt><dd>1,057</dd></div>
+                    <div><dt>Collection window</dt><dd>4 months</dd></div>
+                    <div><dt>Job titles → role families</dt><dd>43 → 6</dd></div>
+                    <div><dt>Distinct skills extracted</dt><dd>720</dd></div>
+                  </dl>
+                  <div class="charts">
+                    <figure class="chart" data-chart="roles"></figure>
+                    <figure class="chart" data-chart="skills"></figure>
+                    <figure class="chart" data-chart="models"></figure>
+                    <figure class="chart" data-chart="value"></figure>
+                  </div>
+                  <div class="chart-tip" id="chart-tip" role="status"></div>
+
+                  <div class="project-foot">
+                    <ul class="tags"><li>Python</li><li>Apify</li><li>GPT-4o-mini</li><li>Sentence-BERT</li><li>K-Means</li><li>scikit-learn</li><li>XGBoost</li><li>LightGBM</li></ul>
+                    <div class="links"><a href="#" class="ph-link">[ Thesis paper ]</a></div>
+                  </div>
+                </article>
+
+                <!-- Featured: Fragrance Site -->
+                <article class="project featured">
+                  <div class="project-head">
+                    <div>
+                      <span class="badge badge-web">Web · 3D · Demo</span>
+                      <h3>NOIR Fragrance Site</h3>
+                    </div>
+                    <span class="dates">Apr 14, 2026 – Apr 20, 2026</span>
+                  </div>
+                  <p class="project-role">Concept site for AscendyX · Developer, 3D Artist</p>
+                  <ul class="points">
+                    <li>Built a concept luxury fragrance site to demonstrate how <strong>Blender-made 3D</strong> can carry a web experience.</li>
+                    <li>Modeled, lit and animated the NOIR bottle in Blender, then rendered it as a <strong>1920×1080, 36 fps</strong> sequence that plays as the site's hero.</li>
+                    <li>Paired the cinematic render with a minimal, editorial layout so the product stays the focus.</li>
+                  </ul>
+                  <h4 class="comment">// blender showcase</h4>
+                  <div class="showcase two">
+                    <figure class="media">
+                      <video class="hover-video" src="Assets/projects/fragrance.mp4" poster="Assets/projects/fragrance.webp" muted loop playsinline preload="none" aria-label="NOIR site hero animation"></video>
+                      <figcaption><span class="play-hint">▶ Hover to play</span> The site's hero animation</figcaption>
+                    </figure>
+                    <figure class="media">
+                      <img src="Assets/projects/Blender%20Project.webp" alt="The NOIR bottle scene in Blender, with camera, lights and render settings" loading="lazy">
+                      <figcaption>The scene in Blender: camera rig, key light and render settings</figcaption>
+                    </figure>
+                  </div>
+                  <div class="project-foot">
+                    <ul class="tags"><li>Blender</li><li>3D modeling</li><li>Lighting</li><li>Animation</li><li>Rendering</li></ul>
+                    <div class="links"><a href="https://fragrance.ascendyx.com" target="_blank" rel="noopener">Live site ↗</a></div>
+                  </div>
+                </article>
+
+                <!-- Featured: Vertex Tower Site -->
+                <article class="project featured">
+                  <div class="project-head">
+                    <div>
+                      <span class="badge badge-web">Web · 3D · Demo</span>
+                      <h3>Vertex Tower Site</h3>
+                    </div>
+                    <span class="dates">Oct 21, 2026 – Nov 4, 2026</span>
+                  </div>
+                  <p class="project-role">Concept site for AscendyX · Developer</p>
+                  <ul class="points">
+                    <li>Built a concept luxury residential site to show how <strong>interactive 3D</strong> can sell a property before it's built.</li>
+                    <li>Coded a <strong>scroll-driven Three.js model</strong> that builds the 30-storey tower phase by phase, plus a blueprint view.</li>
+                    <li>Optimised it for fast loading on Hostinger, and wrapped it in a premium layout so the tower stays the focus.</li>
+                  </ul>
+                  <h4 class="comment">// site showcase</h4>
+                  <div class="showcase device">
+                    <figure class="media">
+                      <img src="Assets/projects/vertex%20desktop.webp" alt="Vertex Tower site hero on desktop, showing the 3D tower beside the headline" loading="lazy">
+                      <figcaption>Desktop: the scroll-driven 3D tower in the hero</figcaption>
+                    </figure>
+                    <figure class="media phone">
+                      <img src="Assets/projects/vertex%20iphone.webp" alt="Vertex Tower site on an iPhone" loading="lazy">
+                      <figcaption>Mobile layout</figcaption>
+                    </figure>
+                  </div>
+                  <div class="project-foot">
+                    <ul class="tags"><li>Three.js</li><li>JavaScript</li><li>3D scroll animation</li><li>Hostinger</li></ul>
+                    <div class="links"><a href="https://vertex.ascendyx.com" target="_blank" rel="noopener">Live site ↗</a></div>
+                  </div>
+                </article>
+              </section>
+
+              <section id="experience">
+                <h2><span class="m-cmd">git log</span><span class="tok-punct">&lt;</span>experience<span class="tok-punct"> /&gt;</span></h2>
+                <ol class="timeline">
+                  <li>
+                    <div class="job-head">
+                      <span class="m-now-tag">Current role</span>
+                      <h3>Developer</h3>
+                      <span class="dates">Dec 2025 – Present</span>
+                    </div>
+                    <p class="org"><img class="org-logo" src="Assets/trimmed/ascendyx.webp" alt="">AscendyX</p>
+                    <ul class="points">
+                      <li>Design, build and deploy <strong>responsive websites and web applications</strong> end to end, from user interface to back-end services.</li>
+                      <li>Develop across HTML, TypeScript, Node.js, PHP and Java, and manage <strong>production deployments</strong> on Vercel, SiteGround and Hostinger.</li>
+                      <li>Build <strong>marketing automation and CRM workflows</strong> in GoHighLevel.</li>
+                      <li>Run Google Ads campaigns and implement conversion tracking through Google Tag Manager.</li>
+                      <li>Produce 3D assets and visuals in Blender, and use Claude to accelerate development and content production.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <div class="job-head">
+                      <h3>AI/ML Intern</h3>
+                      <span class="dates">May 2025 – Jul 2025</span>
+                    </div>
+                    <p class="org"><img class="org-logo" src="Assets/trimmed/rcbc.webp" alt="">Rizal Commercial Banking Corporation (RCBC)</p>
+                    <ul class="points">
+                      <li>Developed and evaluated machine learning models to identify customers for deposit account campaigns.</li>
+                      <li>Delivered a new model that <strong>improved precision by over 50%</strong> compared with the previous approach.</li>
+                      <li>Benchmarked the new model against the existing one and built an alternative challenger model to support model selection.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <div class="job-head">
+                      <h3>External Relations Head</h3>
+                      <span class="dates">Aug 2024 – Aug 2025</span>
+                    </div>
+                    <p class="org"><img class="org-logo" src="Assets/trimmed/mrc.webp" alt="">Mapúa Radio Cardinal</p>
+                    <ul class="points">
+                      <li><strong>Led the External Relations team</strong> and introduced a <strong>standardized email communication process</strong> used across committees.</li>
+                      <li>Served as the organization's primary liaison to student groups within and beyond Mapúa, including <strong>UP, PUP and DLSU</strong>.</li>
+                      <li>Coordinated with internal committees on event hosting, social media posts and event coverage.</li>
+                    </ul>
+                    <div class="job-head prior-role">
+                      <h3>External Relations Associate</h3>
+                      <span class="dates">Apr 2024 – Aug 2024</span>
+                    </div>
+                    <ul class="points">
+                      <li>Supported the External Relations Head directly, compiling and summarizing incoming correspondence.</li>
+                      <li>Drafted and sent outreach emails to external organizations.</li>
+                      <li><strong>Acted as officer-in-charge</strong> of external relations whenever the Head was unavailable.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <div class="job-head">
+                      <h3>Creatives Committee Officer</h3>
+                      <span class="dates">Aug 2023 – May 2024</span>
+                    </div>
+                    <p class="org">Mathematical Society of Mapúa</p>
+                    <ul class="points">
+                      <li>Designed and edited the society's <strong>publication materials, presentations and certificates</strong>.</li>
+                      <li>Supervised creative output at math events, keeping materials consistent with the society's visual identity.</li>
+                    </ul>
+                  </li>
+                </ol>
+              </section>
+
+            </div>
+          </section>
+
+          <!-- ============ assets ============ -->
+          <section class="pane" data-file="assets">
+            <div class="page">
+              <p class="comment"># everything I bring to a project lives in this folder</p>
+
+              <h2><span class="m-cmd">ls</span><svg class="h-icon"><use href="#i-folder"/></svg>assets/tech-stack</h2>
+              <div class="stack">
+                <div class="stack-group">
+                  <h4>Languages</h4>
+                  <ul class="chips">
+                    <li><i class="chip-icon"></i>Python</li>
+                    <li><i class="chip-icon"></i>SQL</li>
+                    <li><i class="chip-icon"></i>TypeScript</li>
+                    <li><i class="chip-icon"></i>PHP</li>
+                    <li><i class="chip-icon"></i>Java</li>
+                  </ul>
+                </div>
+                <div class="stack-group">
+                  <h4>Web</h4>
+                  <ul class="chips">
+                    <li><i class="chip-icon"></i>HTML</li>
+                    <li><i class="chip-icon"></i>CSS</li>
+                    <li><i class="chip-icon"></i>JavaScript</li>
+                    <li><i class="chip-icon"></i>Node.js</li>
+                  </ul>
+                </div>
+                <div class="stack-group wide">
+                  <h4>Machine Learning &amp; Data Libraries</h4>
+                  <ul class="chips">
+                    <li><i class="chip-icon"></i>Pandas</li>
+                    <li><i class="chip-icon"></i>NumPy</li>
+                    <li><i class="chip-icon"></i>Scikit-learn</li>
+                    <li><i class="chip-icon"></i>XGBoost</li>
+                    <li><i class="chip-icon"></i>LightGBM</li>
+                    <li><i class="chip-icon"></i>Matplotlib</li>
+                    <li><i class="chip-icon"></i>GeoPandas</li>
+                    <li><i class="chip-icon"></i>Seaborn</li>
+                  </ul>
+                  <p class="skills">Machine learning · Neural networks · Feature engineering · NLP · LLM data extraction · Clustering · Data preprocessing · Data analysis · Data visualization</p>
+                </div>
+                <div class="stack-group">
+                  <h4>Data &amp; Cloud</h4>
+                  <ul class="chips">
+                    <li><i class="chip-icon"></i>AWS</li>
+                    <li><i class="chip-icon"></i>Databricks</li>
+                    <li><i class="chip-icon"></i>REST APIs</li>
+                    <li><i class="chip-icon"></i>OpenAI API</li>
+                    <li><i class="chip-icon"></i>Gemini API</li>
+                    <li><i class="chip-icon"></i>Apify</li>
+                  </ul>
+                </div>
+                <div class="stack-group">
+                  <h4>Tools &amp; Platforms</h4>
+                  <ul class="chips">
+                    <li><i class="chip-icon"></i>Git</li>
+                    <li><i class="chip-icon"></i>GitHub</li>
+                    <li><i class="chip-icon"></i>Jupyter</li>
+                    <li><i class="chip-icon"></i>VS Code</li>
+                    <li><i class="chip-icon"></i>Linux</li>
+                    <li><i class="chip-icon"></i>Excel</li>
+                    <li><i class="chip-icon"></i>Blender</li>
+                    <li><i class="chip-icon"></i>Claude</li>
+                  </ul>
+                </div>
+                <div class="stack-group wide">
+                  <h4>Deployment &amp; Marketing</h4>
+                  <ul class="chips">
+                    <li><i class="chip-icon"></i>Vercel</li>
+                    <li><i class="chip-icon"></i>SiteGround</li>
+                    <li><i class="chip-icon"></i>Hostinger</li>
+                    <li><i class="chip-icon"></i>GoHighLevel</li>
+                    <li><i class="chip-icon"></i>Google Ads</li>
+                    <li><i class="chip-icon"></i>Google Tag Manager</li>
+                  </ul>
+                </div>
+              </div>
+
+              <h2><span class="m-cmd">cat</span><svg class="h-icon"><use href="#i-folder"/></svg>assets/what-i-bring</h2>
+              <div class="value-grid">
+                <article class="value">
+                  <span class="value-num">01</span>
+                  <h3>Models that move the metric</h3>
+                  <p>At RCBC I built a new model that improved precision by over 50% compared with the previous approach. I benchmark against what's already in place and keep a challenger model alongside.</p>
+                </article>
+                <article class="value">
+                  <span class="value-num">02</span>
+                  <h3>Data work, end to end</h3>
+                  <p>I collect and clean the data, engineer the features, train the models, and explain the results. My thesis went from raw Indeed postings to an LLM skill-extraction pipeline, role clustering, and a peso estimate of which skills pay.</p>
+                </article>
+                <article class="value">
+                  <span class="value-num">03</span>
+                  <h3>Web &amp; 3D</h3>
+                  <p>As a developer at AscendyX I design, build and deploy websites and web applications, with Blender-made 3D visuals and the GoHighLevel, Google Ads and Tag Manager setup that makes a site perform once it's live.</p>
+                </article>
+                <article class="value">
+                  <span class="value-num">04</span>
+                  <h3>Communication &amp; leadership</h3>
+                  <p>As External Relations Head of Mapúa Radio Cardinal I led a team and handled communications with organizations across UP, PUP and DLSU, so I'm used to explaining work to people outside it.</p>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ .env ============ -->
+          <section class="pane" data-file="env">
+            <div class="code">
+              <div class="ln"><span class="tok-comment"># Contact — the one .env that's safe to commit</span></div>
+              <div class="ln"></div>
+              <div class="ln"><span class="tok-var">NAME</span>=<span class="tok-str">"Keith Martin Paddit"</span></div>
+              <div class="ln"><span class="tok-var">ROLE</span>=<span class="tok-str">"Web Developer | Data Scientist"</span></div>
+              <div class="ln"><span class="tok-var">DEGREE</span>=<span class="tok-str">"BS Data Science, Mapúa University"</span></div>
+              <div class="ln"><span class="tok-var">LOCATION</span>=<span class="tok-str">"Baguio City, Philippines"</span></div>
+              <div class="ln"></div>
+              <div class="ln"><span class="tok-comment"># Reach me</span></div>
+              <div class="ln"><span class="tok-var">EMAIL</span>=<a class="tok-str" href="mailto:padditkeith@gmail.com">"padditkeith@gmail.com"</a></div>
+              <div class="ln"><span class="tok-var">PHONE</span>=<a class="tok-str" href="tel:+639177105011">"+63 917 710 5011"</a></div>
+              <div class="ln"></div>
+              <div class="ln"><span class="tok-comment"># Find me</span></div>
+              <div class="ln"><span class="tok-var">LINKEDIN</span>=<a class="tok-str" href="https://www.linkedin.com/in/keithpaddit/" target="_blank" rel="noopener">"linkedin.com/in/keithpaddit"</a></div>
+              <div class="ln"></div>
+              <div class="ln"><span class="tok-var">OPEN_TO_WORK</span>=<span class="tok-key">true</span></div>
+              <div class="ln"><span class="tok-var">RESPONSE_TIME</span>=<span class="tok-str ph-code">"[ e.g. within 24h ]"</span></div>
+            </div>
+            <!-- Mobile only: large tap targets for the same contact details -->
+            <div class="m-contact">
+              <p class="tok-comment"># quick actions</p>
+              <a href="mailto:padditkeith@gmail.com"><span class="m-run">❯ mail</span><span>padditkeith@gmail.com</span></a>
+              <a href="tel:+639177105011"><span class="m-run">❯ call</span><span>+63 917 710 5011</span></a>
+              <a href="https://www.linkedin.com/in/keithpaddit/" target="_blank" rel="noopener"><span class="m-run">❯ open</span><span>linkedin.com/in/keithpaddit</span></a>
+            </div>
+          </section>
+
+          <!-- Shown when every tab is closed -->
+          <div class="empty" id="empty">
+            <img src="Assets/VSCode%20Logo.webp" alt="">
+            <p>Pick a file from the explorer to keep reading.</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ───────── Status bar ───────── -->
+    <footer class="statusbar">
+      <div class="status-left">
+        <span class="status-remote">&gt;&lt;</span>
+        <span><svg width="14" height="14"><use href="#i-branch"/></svg> main</span>
+        <span>&#x2298; 0 &#x26A0; 0</span>
+      </div>
+      <div class="status-right">
+        <span>Spaces: 2</span><span>UTF-8</span><span id="status-lang">HTML</span><span>Open to work</span>
+      </div>
+    </footer>
+
+    <!-- ───────── Mobile nav (replaces the explorer on small screens) ───────── -->
+    <nav class="mobile-nav" aria-label="Sections">
+      <a href="#index" data-file="index"><svg><use href="#i-html"/></svg><b>Work</b><span>index.html</span></a>
+      <a href="#assets" data-file="assets"><svg><use href="#i-folder"/></svg><b>Skills</b><span>assets</span></a>
+      <a href="#env" data-file="env"><svg><use href="#i-env"/></svg><b>Contact</b><span>.env</span></a>
+    </nav>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

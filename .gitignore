@@ -1,0 +1,5 @@
+# Full-quality source images; the site uses the WebP copies in Assets/
+originals/
+
+# Private CV workspace: experience log and copy-ready CV text
+cv/
