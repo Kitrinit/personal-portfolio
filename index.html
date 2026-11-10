@@ -354,7 +354,7 @@
               <header class="nb-title">
                 <span class="badge badge-ds">Data Science · Thesis · Case study</span>
                 <h1>What is a data skill worth in the Philippines?</h1>
-                <p class="nb-lede">I collected four months of Indeed job postings, used an LLM to pull out the skills each one asks for, and trained models to estimate salaries. Then I turned what the model learned into a peso value for each skill.</p>
+                <p class="nb-lede">We collected four months of Indeed job postings, used an LLM to pull out the skills each one asks for, and trained models to estimate salaries. Then we turned what the model learned into a peso value for each skill.</p>
                 <p class="project-role">Undergraduate thesis, Mapúa University · Project Lead, Programmer · with Paul Angelo Z. Perez · Nov 2024 – Aug 2025</p>
                 <dl class="stats">
                   <div><dt>Salaried postings modeled</dt><dd data-count="1057">1,057</dd></div>
@@ -370,7 +370,7 @@
                 <div class="nb-body">
                   <p class="nb-step">01 · collect</p>
                   <h2 class="nb-h">Four months of Indeed postings, pulled daily</h2>
-                  <p class="nb-why"><b>Why Apify:</b> a scheduled actor returns Indeed's structured fields every day, so I didn't need a scraper that breaks whenever the page layout changes.</p>
+                  <p class="nb-why"><b>Why Apify:</b> a scheduled actor returns Indeed's structured fields every day, so we didn't need a scraper that breaks whenever the page layout changes.</p>
                   <div class="nb-out nb-grid2">
                     <figure class="nb-fig">
                       <figcaption><div class="chart-title">238 fields per posting → 9 kept</div><div class="chart-sub">Title, min/max salary, pay type, location, posted date, job type, description, link</div></figcaption>
@@ -422,8 +422,8 @@
                 <div class="nb-gutter">[ ]:</div>
                 <div class="nb-body">
                   <p class="nb-step">03 · clean</p>
-                  <h2 class="nb-h">From 1,318 extracted postings to 1,057 I could trust</h2>
-                  <p class="nb-why"><b>Before this:</b> I removed duplicates by link and by description text, kept only 80 data-related titles, and dropped skills that appeared just once. <b>Here:</b> every posting that remains has a monthly salary I can compare.</p>
+                  <h2 class="nb-h">From 1,318 extracted postings to 1,057 we could trust</h2>
+                  <p class="nb-why"><b>Before this:</b> we removed duplicates by link and by description text, kept only 80 data-related titles, and dropped skills that appeared just once. <b>Here:</b> every posting that remains has a monthly salary we can compare.</p>
                   <div class="nb-out">
                     <div class="nb-funnel" id="nb-funnel"></div>
                   </div>
@@ -442,7 +442,7 @@
                 <div class="nb-body">
                   <p class="nb-step">04 · group</p>
                   <h2 class="nb-h">43 job titles, 6 role families</h2>
-                  <p class="nb-why"><b>Why cluster:</b> many titles had only a handful of postings, too few to learn a salary from. I embedded each title together with its skills using Sentence-BERT (all-MiniLM-L6-v2), ran K-Means for k = 2–14, chose k by silhouette score, and assigned each title to its majority cluster.</p>
+                  <p class="nb-why"><b>Why cluster:</b> many titles had only a handful of postings, too few to learn a salary from. We embedded each title together with its skills using Sentence-BERT (all-MiniLM-L6-v2), ran K-Means for k = 2–14, chose k by silhouette score, and assigned each title to its majority cluster.</p>
                   <div class="nb-out">
                     <figure class="nb-fig">
                       <figcaption><div class="chart-title">Every dot is about 10 postings</div><div class="chart-sub">Mixed together at first, then sorted into the clusters K-Means found</div></figcaption>
@@ -459,7 +459,7 @@
                 <div class="nb-body">
                   <p class="nb-step">05 · model</p>
                   <h2 class="nb-h">Four models, one test set they never saw</h2>
-                  <p class="nb-why"><b>Features:</b> TF-IDF weights for the skills, plus role family, location, job type and a seniority level parsed from the title. A Random Forest ranked them, and I kept the top 150 after checking validation R² at every step of 10. <b>Tuning:</b> a 3-fold grid search inside a 5-fold cross-validation, both predicting min and max salary.</p>
+                  <p class="nb-why"><b>Features:</b> TF-IDF weights for the skills, plus role family, location, job type and a seniority level parsed from the title. A Random Forest ranked them, and we kept the top 150 after checking validation R² at every step of 10. <b>Tuning:</b> a 3-fold grid search inside a 5-fold cross-validation, both predicting min and max salary.</p>
                   <div class="nb-out nb-grid2">
                     <figure class="nb-fig">
                       <figcaption><div class="chart-title">Split, stratified by role family</div><div class="chart-sub">The test set is used once, at the very end</div></figcaption>
@@ -485,7 +485,7 @@
                 <div class="nb-body">
                   <p class="nb-step">06 · value</p>
                   <h2 class="nb-h">Turning importance into pesos</h2>
-                  <p class="nb-why"><b>How:</b> I averaged XGBoost's feature importance across the min and max models, min-max scaled it, and multiplied by the average gap between posted max and min salary (₱61,102 − ₱44,853 = <b>₱16,249</b>). The top skill gets the full gap, and every other skill gets a share of it.</p>
+                  <p class="nb-why"><b>How:</b> we averaged XGBoost's feature importance across the min and max models, min-max scaled it, and multiplied by the average gap between posted max and min salary (₱61,102 − ₱44,853 = <b>₱16,249</b>). The top skill gets the full gap, and every other skill gets a share of it.</p>
                   <div class="nb-out nb-grid2">
                     <figure class="chart nb-fig" data-chart="value"></figure>
                     <figure class="chart nb-fig" data-chart="roles"></figure>
@@ -505,10 +505,10 @@
                 <div class="nb-gutter">[ ]:</div>
                 <div class="nb-body">
                   <p class="nb-step">07 · next</p>
-                  <h2 class="nb-h">What I'd do differently</h2>
+                  <h2 class="nb-h">What we'd do differently</h2>
                   <div class="nb-out nb-next">
                     <article><span class="value-num">01</span><h3>Check the extraction</h3><p>Hand-label around 100 postings to measure how often the LLM adds or misses skills, like the inferred soft skills above.</p></article>
-                    <article><span class="value-num">02</span><h3>Widen the data</h3><p>Indeed alone, over four months, is one slice of the market. I'd add other job boards and a full year to see seasonality.</p></article>
+                    <article><span class="value-num">02</span><h3>Widen the data</h3><p>Indeed alone, over four months, is one slice of the market. We'd add other job boards and a full year to see seasonality.</p></article>
                     <article><span class="value-num">03</span><h3>Add experience</h3><p>Years required is in most descriptions but wasn't modeled. It's likely the biggest gap between an R² of 0.44 and a useful one.</p></article>
                   </div>
                   <p class="nb-why">Skill values reflect what the model relied on, not what causes a raise. Read them as signals, not guarantees.</p>
@@ -606,7 +606,7 @@
                 <article class="value">
                   <span class="value-num">02</span>
                   <h3>Data work, end to end</h3>
-                  <p>I collect and clean the data, engineer the features, train the models, and explain the results. My thesis went from raw Indeed postings to an LLM skill-extraction pipeline, role clustering, and a peso estimate of which skills pay.</p>
+                  <p>I collect and clean the data, engineer the features, train the models, and explain the results. Our thesis went from raw Indeed postings to an LLM skill-extraction pipeline, role clustering, and a peso estimate of which skills pay.</p>
                 </article>
                 <article class="value">
                   <span class="value-num">03</span>
