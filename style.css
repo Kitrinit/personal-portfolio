@@ -362,6 +362,10 @@ strong { color: var(--text-bright); font-weight: 600; }
 }
 /* Empty square = drop a logo here */
 .chip-icon { width: 20px; height: 20px; border: 1px dashed #666; border-radius: 3px; }
+/* Logos keep their own proportions at chip height */
+img.chip-icon { width: auto; max-width: 34px; border: 0; border-radius: 0; object-fit: contain; }
+/* Dark-ink logos (GitHub, AWS) sit on a light tile, like the Mapúa logo, so their official colors stay untouched */
+img.chip-icon.tile { box-sizing: content-box; height: 16px; padding: 2px 3px; background: #fff; border-radius: 3px; }
 
 .stack-group.wide { grid-column: 1 / -1; }
 .skills { margin-top: 12px; font-size: 13px; color: var(--text-dim); }
