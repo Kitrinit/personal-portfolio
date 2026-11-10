@@ -250,13 +250,20 @@ if (nb) {
     </div>`).join('');
 
   // 04 · role families: ~10 postings per dot, shuffled in a grid, then sorted into stacks
+  // Titles per family as printed by the clustering step in Final Notebook v3.1
   const FAMILIES = [
-    ['Data Analyst', 380, 'var(--tok-tag)', 'Excel · SQL · analysis'],
-    ['Business Analyst', 303, 'var(--tok-type)', 'analysis · project management'],
-    ['Data Scientist', 128, 'var(--tok-key)', 'SQL · Python · ETL · modeling'],
-    ['Data Mgmt Specialist', 111, 'var(--tok-fn)', 'data · Excel · attention to detail'],
-    ['Financial Analyst', 78, 'var(--tok-str)', 'financial · Excel · reporting'],
-    ['Database Engineer', 57, 'var(--tok-var)', 'database · SQL · server'],
+    ['Data Analyst', 380, 'var(--tok-tag)', ['Data Analyst', 'BI Analyst', 'BI Developer', 'Reporting Analyst', 'Marketing Analyst', 'Analytics Manager',
+      'Data Associate', 'Data Coordinator', 'Data Conversion Operator', 'Junior Data Analyst', 'Senior Data Analyst']],
+    ['Business Analyst', 303, 'var(--tok-type)', ['Business Analyst', 'Business Systems Analyst', 'Business Process Analyst',
+      'Business Development Analyst', 'Senior Business Analyst']],
+    ['Data Scientist', 128, 'var(--tok-key)', ['Data Scientist', 'Data Engineer', 'Machine Learning Engineer', 'ETL Developer', 'Cloud Engineer',
+      'Data Consultant', 'Analytics Consultant', 'Data Science Manager', 'Senior Data Scientist']],
+    ['Data Mgmt Specialist', 111, 'var(--tok-fn)', ['Data Specialist', 'Master Data Steward', 'Data Governance Analyst', 'Data Protection Officer',
+      'Data Protection Specialist', 'Data Administrator', 'Data Manager', 'Data Processor', 'HR Analytics Manager', 'Business Development Manager',
+      'Senior Data Specialist']],
+    ['Financial Analyst', 78, 'var(--tok-str)', ['Financial Analyst', 'Junior Financial Analyst']],
+    ['Database Engineer', 57, 'var(--tok-var)', ['Database Administrator', 'Database Developer', 'Data Warehouse Engineer', 'Database Engineer',
+      'Senior Database Administrator']],
   ];
   const dots = FAMILIES.flatMap(([, n, color], g) => Array.from({ length: Math.round(n / 10) }, (_, j) => ({ g, j, color })));
   let seed = 7;
@@ -278,8 +285,44 @@ if (nb) {
     c.style.fill = color;
   });
   mixDots();
-  document.getElementById('nb-legend').innerHTML = FAMILIES.map(([name, n, color, skills]) =>
-    `<li style="--c:${color}"><i></i><b>${name}</b><em>${n}</em><small>${skills}</small></li>`).join('');
+  document.getElementById('nb-legend').innerHTML = FAMILIES.map(([name, n, color, titles]) =>
+    `<li style="--c:${color}" title="${titles.join(', ')}"><i></i><b>${name}</b><em>${n}</em>
+      <small>${titles.length} title${titles.length > 1 ? 's' : ''} · ${titles.slice(0, 3).join(', ')}${titles.length > 3 ? ', …' : ''}</small></li>`).join('');
+
+  // Line charts, with values read off the plots saved in Final Notebook v3.1
+  const FEATURE_R2 = [.315, .355, .375, .371, .383, .404, .384, .390, .414, .416, .417, .417, .420, .417, .424, .414, .418, .416,
+    .418, .411, .405, .409, .417, .417, .418, .416, .420, .411, .421, .414, .408, .426, .413, .419, .412, .406, .413, .419, .412,
+    .406, .413, .414, .422, .411, .418, .418, .417, .413, .419, .405, .415, .420, .417, .421, .413, .417, .416, .416, .415, .422,
+    .412, .416, .411, .412, .414, .420, .414, .415, .411, .413, .421];
+  const LINES = {
+    silhouette: {
+      x: [2, 14], xTicks: [2, 4, 6, 8, 10, 12, 14], y: [.045, .087], yTicks: [.05, .06, .07, .08], fmt: (v) => v.toFixed(2),
+      pts: [[2, .0834], [3, .0707], [4, .0756], [5, .0802], [6, .0808], [7, .0766], [8, .0592], [9, .0522], [10, .0479],
+        [11, .0508], [12, .0510], [13, .0512], [14, .0512]],
+      mark: [6, 'k = 6 · 0.081'], r: 4,
+    },
+    features: {
+      x: [0, 720], xTicks: [0, 150, 300, 450, 600], y: [.30, .44], yTicks: [.32, .36, .40, .44], fmt: (v) => v.toFixed(2),
+      pts: FEATURE_R2.map((v, i) => [(i + 1) * 10, v]),
+      mark: [150, '150 kept · 0.424'], r: 2.4,
+    },
+  };
+  nb.querySelectorAll('[data-line]').forEach((svg) => {
+    const c = LINES[svg.dataset.line];
+    const L = 50, R = 466, T = 16, B = 214;
+    const sx = (v) => L + ((v - c.x[0]) / (c.x[1] - c.x[0])) * (R - L);
+    const sy = (v) => B - ((v - c.y[0]) / (c.y[1] - c.y[0])) * (B - T);
+    const [mx, mLabel] = c.mark, mp = c.pts.find((p) => p[0] === mx);
+    svg.innerHTML = `
+      ${c.yTicks.map((t) => `<line class="grid" x1="${L}" x2="${R}" y1="${sy(t)}" y2="${sy(t)}"/><text class="tick" x="${L - 8}" y="${sy(t) + 4}" text-anchor="end">${c.fmt(t)}</text>`).join('')}
+      ${c.xTicks.map((t) => `<text class="tick" x="${sx(t)}" y="${B + 22}" text-anchor="middle">${t}</text>`).join('')}
+      <line class="axis" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/>
+      <line class="mark-line" x1="${sx(mx)}" x2="${sx(mx)}" y1="${T}" y2="${B}"/>
+      <polyline class="nb-path" pathLength="1" points="${c.pts.map(([x, y]) => `${sx(x)},${sy(y)}`).join(' ')}"/>
+      ${c.pts.map(([x, y], i) => `<circle class="pt" style="--i:${i}" r="${c.r}" cx="${sx(x)}" cy="${sy(y)}"/>`).join('')}
+      <circle class="pt-mark" r="${c.r + 3}" cx="${sx(mp[0])}" cy="${sy(mp[1])}"/>
+      <text class="mark-label" x="${sx(mx) + 8}" y="${B - 10}">${mLabel}</text>`;
+  });
 
   // Execution: [ ] → [*] while running → [n], numbered in run order like Jupyter
   const kernel = nb.closest('.pane').querySelector('.nb-kernel');

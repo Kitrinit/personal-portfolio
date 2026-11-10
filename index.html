@@ -442,7 +442,18 @@
                 <div class="nb-body">
                   <p class="nb-step">04 · group</p>
                   <h2 class="nb-h">43 job titles, 6 role families</h2>
-                  <p class="nb-why"><b>Why cluster:</b> many titles had only a handful of postings, too few to learn a salary from. We embedded each title together with its skills using Sentence-BERT (all-MiniLM-L6-v2), ran K-Means for k = 2–14, chose k by silhouette score, and assigned each title to its majority cluster.</p>
+                  <p class="nb-why"><b>Why cluster:</b> many titles had only a handful of postings, too few to learn a salary from. We embedded each title together with its skills using Sentence-BERT (all-MiniLM-L6-v2), ran K-Means for k = 2–14, and assigned each title to its majority cluster.</p>
+                  <div class="nb-out nb-grid2">
+                    <figure class="nb-fig">
+                      <figcaption><div class="chart-title">Silhouette score by number of clusters</div><div class="chart-sub">Higher means tighter, better-separated clusters</div></figcaption>
+                      <svg class="nb-line" data-line="silhouette" viewBox="0 0 480 250" role="img" aria-label="Silhouette score peaks at k = 2 (0.083), then again at k = 6 (0.081), and falls after k = 7"></svg>
+                    </figure>
+                    <div class="nb-fig nb-callout">
+                      <p class="nb-big">k = 6</p>
+                      <p>k = 2 scored highest, but two groups are too coarse to price a role. k = 6 is the next peak (0.081), and the score drops sharply after 7.</p>
+                      <p class="chart-note">Every score is low (under 0.09): related data jobs overlap, so the families have soft edges.</p>
+                    </div>
+                  </div>
                   <div class="nb-out">
                     <figure class="nb-fig">
                       <figcaption><div class="chart-title">Every dot is about 10 postings</div><div class="chart-sub">Mixed together at first, then sorted into the clusters K-Means found</div></figcaption>
@@ -460,6 +471,25 @@
                   <p class="nb-step">05 · model</p>
                   <h2 class="nb-h">Four models, one test set they never saw</h2>
                   <p class="nb-why"><b>Features:</b> TF-IDF weights for the skills, plus role family, location, job type and a seniority level parsed from the title. A Random Forest ranked them, and we kept the top 150 after checking validation R² at every step of 10. <b>Tuning:</b> a 3-fold grid search inside a 5-fold cross-validation, both predicting min and max salary.</p>
+                  <div class="nb-out nb-grid2">
+                    <figure class="nb-fig">
+                      <figcaption><div class="chart-title">Validation R² by number of features kept</div><div class="chart-sub">Random Forest, top-N features by importance, steps of 10</div></figcaption>
+                      <svg class="nb-line" data-line="features" viewBox="0 0 480 250" role="img" aria-label="Validation R² climbs from 0.32 at 10 features to about 0.41 by 90, then stays flat; 150 features scores 0.424"></svg>
+                    </figure>
+                    <figure class="nb-fig">
+                      <figcaption><div class="chart-title">Cross-validation: all 724 features → top 150, tuned</div><div class="chart-sub">5-fold average, max salary</div></figcaption>
+                      <table class="nb-table">
+                        <thead><tr><th>Model</th><th>MAE</th><th>R²</th></tr></thead>
+                        <tbody>
+                          <tr class="good"><td>Linear Regression</td><td>₱81K → <b>₱26K</b></td><td>−37.1 → <b>0.01</b></td></tr>
+                          <tr class="good"><td>XGBoost</td><td>₱20.1K → <b>₱18.8K</b></td><td>0.33 → <b>0.39</b></td></tr>
+                          <tr><td>LightGBM</td><td>₱21.1K → <b>₱21.5K</b></td><td>0.30 → <b>0.31</b></td></tr>
+                          <tr class="bad"><td>Random Forest</td><td>₱19.3K → <b>₱22.0K</b></td><td>0.40 → <b>0.34</b></td></tr>
+                        </tbody>
+                      </table>
+                      <p class="chart-note">With 724 sparse columns, linear regression fell apart. Trimming to 150 fixed it and helped XGBoost the most. Random Forest got slightly worse.</p>
+                    </figure>
+                  </div>
                   <div class="nb-out nb-grid2">
                     <figure class="nb-fig">
                       <figcaption><div class="chart-title">Split, stratified by role family</div><div class="chart-sub">The test set is used once, at the very end</div></figcaption>
