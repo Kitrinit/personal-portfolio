@@ -1,0 +1,16 @@
+# keithpaddit.ascendyx.com (Hostinger / LiteSpeed)
+
+# Caching
+# - HTML, CSS and JS are re-checked on every visit (a tiny "not modified"
+#   reply when nothing changed), so a new deploy shows up straight away and
+#   never mixes a new index.html with an old script.js.
+# - Images and video rarely change, so they are cached for a month. Rename a
+#   file (or add ?v=2 where it is referenced) when replacing it.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|css|js)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(jpe?g|png|webp|svg|ico|mp4)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
