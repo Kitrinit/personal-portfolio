@@ -15,7 +15,8 @@
     <symbol id="i-html" viewBox="0 0 16 16"><path fill="none" stroke="#e37933" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5.5 4 2 8l3.5 4M10.5 4 14 8l-3.5 4"/></symbol>
     <symbol id="i-folder" viewBox="0 0 16 16"><path fill="#dcb67a" d="M1.5 3.5A1 1 0 0 1 2.5 2.5h3.6l1.5 1.5h5.9a1 1 0 0 1 1 1v7.5a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1z"/></symbol>
     <symbol id="i-env" viewBox="0 0 16 16"><path fill="none" stroke="#e5c07b" stroke-width="1.4" d="M8 5.6a2.4 2.4 0 1 0 0 4.8 2.4 2.4 0 0 0 0-4.8z"/><path fill="none" stroke="#e5c07b" stroke-width="1.4" stroke-linecap="round" d="M8 1.8v1.7M8 12.5v1.7M1.8 8h1.7M12.5 8h1.7M3.6 3.6l1.2 1.2M11.2 11.2l1.2 1.2M12.4 3.6l-1.2 1.2M4.8 11.2l-1.2 1.2"/></symbol>
-    <symbol id="i-files" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M14 3H7v14h11V7zM14 3v4h4M7 7H4v14h10v-4"/></symbol>
+    <symbol id="i-ipynb" viewBox="0 0 16 16"><g fill="none" stroke="#f37726" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 6.2C3.8 3.600 12.2 3.600 13.5 6.2"/><path d="M2.5 9.8c1.300 2.600 9.700 2.600 11 0"/></g><circle cx="12.6" cy="2.8" r="1.1" fill="#9e9e9e"/><circle cx="3.2" cy="13.4" r=".9" fill="#9e9e9e"/></symbol>
+    <symbol id="i-files"viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M14 3H7v14h11V7zM14 3v4h4M7 7H4v14h10v-4"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="14" cy="10" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path stroke="currentColor" stroke-width="1.5" stroke-linecap="round" d="M10 14.5 4 20.5"/></symbol>
     <symbol id="i-branch" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="5" r="2.2"/><circle cx="7" cy="19" r="2.2"/><circle cx="17" cy="9" r="2.2"/><path d="M7 7.2v9.6M17 11.2c0 3.5-10 2-10 5.6"/></g></symbol>
     <symbol id="i-ext" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M4 9h6v6H4zM4 15h6v6H4zM10 15h6v6h-6zM14 4h6v6h-6z"/></symbol>
@@ -33,7 +34,7 @@
         <ul class="menu" aria-hidden="true">
           <li>File</li><li>Edit</li><li>Selection</li><li>View</li><li>Go</li><li>Run</li><li>Terminal</li><li>Help</li>
         </ul>
-        <span class="mobile-title"><span class="tok-comment">❯</span> <span class="dim">~/keith-paddit/</span><span id="mobile-file">index.html</span></span>
+        <span class="mobile-title"><span class="tok-comment">❯</span> <span class="dim">~/<a href="#index" data-open="index" class="m-root">keith-paddit</a>/</span><span id="mobile-file">index.html</span></span>
       </div>
       <div class="command-center" aria-hidden="true">
         <svg width="14" height="14"><use href="#i-search"/></svg>
@@ -75,6 +76,9 @@
           </a>
           <a href="#index" class="tree-item" data-file="index">
             <svg class="file-icon"><use href="#i-html"/></svg><span>index.html</span>
+          </a>
+          <a href="#thesis" class="tree-item" data-file="thesis">
+            <svg class="file-icon"><use href="#i-ipynb"/></svg><span>thesis.ipynb</span>
           </a>
         </nav>
       </aside>
@@ -168,7 +172,7 @@
 
                   <div class="project-foot">
                     <ul class="tags"><li>Python</li><li>Web scraping</li><li>Apify</li><li>OpenAI API</li><li>GPT-4o-mini</li><li>NLP</li><li>Sentence-BERT</li><li>K-Means</li><li>scikit-learn</li><li>Random Forest</li><li>XGBoost</li><li>LightGBM</li><li>Cross-validation</li></ul>
-                    <div class="links"><a href="#" class="ph-link">[ Thesis paper ]</a></div>
+                    <div class="links"><a href="#thesis" data-open="thesis">Read the case study →</a><a href="#" class="ph-link">[ Thesis paper ]</a></div>
                   </div>
                 </article>
 
@@ -333,6 +337,183 @@
                     </ul>
                   </li>
                 </ol>
+              </section>
+
+            </div>
+          </section>
+
+          <!-- ============ thesis.ipynb (case study) ============ -->
+          <!-- Each .nb-cell "runs" when it scrolls into view: its counter ticks and its output animates in (script.js) -->
+          <section class="pane" data-file="thesis">
+            <div class="nb-toolbar">
+              <button class="nb-run-all" id="nb-run-all">▶ Run All</button>
+              <span class="nb-kernel"><i></i>Python 3 (ipykernel)</span>
+            </div>
+            <div class="page nb">
+
+              <header class="nb-title">
+                <span class="badge badge-ds">Data Science · Thesis · Case study</span>
+                <h1>What is a data skill worth in the Philippines?</h1>
+                <p class="nb-lede">I collected four months of Indeed job postings, used an LLM to pull out the skills each one asks for, and trained models to estimate salaries. Then I turned what the model learned into a peso value for each skill.</p>
+                <p class="project-role">Undergraduate thesis, Mapúa University · Project Lead, Programmer · with Paul Angelo Z. Perez · Nov 2024 – Aug 2025</p>
+                <dl class="stats">
+                  <div><dt>Salaried postings modeled</dt><dd data-count="1057">1,057</dd></div>
+                  <div><dt>Distinct skills extracted</dt><dd data-count="720">720</dd></div>
+                  <div><dt>Role families</dt><dd data-count="6">6</dd></div>
+                  <div><dt>Best test MAE (XGBoost)</dt><dd>₱17K</dd></div>
+                </dl>
+              </header>
+
+              <!-- 1 · Collect -->
+              <section class="nb-cell" data-cell="collect">
+                <div class="nb-gutter">[ ]:</div>
+                <div class="nb-body">
+                  <p class="nb-step">01 · collect</p>
+                  <h2 class="nb-h">Four months of Indeed postings, pulled daily</h2>
+                  <p class="nb-why"><b>Why Apify:</b> a scheduled actor returns Indeed's structured fields every day, so I didn't need a scraper that breaks whenever the page layout changes.</p>
+                  <div class="nb-out nb-grid2">
+                    <figure class="nb-fig">
+                      <figcaption><div class="chart-title">238 fields per posting → 9 kept</div><div class="chart-sub">Title, min/max salary, pay type, location, posted date, job type, description, link</div></figcaption>
+                      <div class="nb-fields" id="nb-fields" aria-hidden="true"></div>
+                    </figure>
+                    <figure class="nb-fig">
+                      <figcaption><div class="chart-title">Postings in the final dataset by month</div><div class="chart-sub">Nov 19, 2024 – Mar 19, 2025</div></figcaption>
+                      <div class="nb-cols" data-cols="months"></div>
+                    </figure>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 2 · Extract -->
+              <section class="nb-cell" data-cell="extract">
+                <div class="nb-gutter">[ ]:</div>
+                <div class="nb-body">
+                  <p class="nb-step">02 · extract</p>
+                  <h2 class="nb-h">An LLM reads every description and lists the skills</h2>
+                  <p class="nb-why"><b>Why not keyword matching:</b> postings write the same skill a dozen ways ("MS Excel", "advanced Excel", "Excel/Sheets"). GPT-4o-mini, at temperature 0.3, maps each one to a single standard name based on the O*NET taxonomy.</p>
+                  <div class="nb-out nb-extract">
+                    <figure class="nb-fig nb-posting">
+                      <figcaption><div class="chart-title">A real posting · Data Analyst, Pasay · ₱30K–40K</div></figcaption>
+                      <p class="nb-raw">2-5 years of experience in business analysis or related roles, preferably in a BPO setting. Familiarity with data analysis tools (e.g., <mark style="--d:0">Excel</mark>, <mark style="--d:1">SQL</mark>, <mark style="--d:2">BI tools</mark>) and experience with <mark style="--d:3">project management software</mark>. Knowledge in <mark style="--d:4">Data Visualization tools</mark> (e.g Power BI and Looker)</p>
+                      <span class="nb-scan" aria-hidden="true"></span>
+                    </figure>
+                    <div class="nb-fig nb-skills">
+                      <p class="chart-title">→ Technical skills</p>
+                      <ul class="nb-chips">
+                        <li style="--d:0">Microsoft Excel</li><li style="--d:1">SQL</li><li style="--d:2">Business Intelligence Tools</li><li style="--d:3">Project Management Software</li><li style="--d:4">Data Visualization</li>
+                      </ul>
+                      <p class="chart-title">→ Soft skills</p>
+                      <ul class="nb-chips inferred">
+                        <li style="--d:5">Communication Skills</li><li style="--d:6">Teamwork</li>
+                      </ul>
+                      <p class="chart-note">Dashed: the model added these even though the posting never mentions them. Communication appears in <b>99%</b> of postings, partly for this reason.</p>
+                    </div>
+                  </div>
+                  <div class="nb-out nb-norm" aria-label="Examples of how the prompt standardizes skills">
+                    <p><s>MS Excel</s><span>→</span><b>Microsoft Excel</b></p>
+                    <p><s>Strong SQL knowledge</s><span>→</span><b>SQL</b></p>
+                    <p><s>Good verbal communication</s><span>→</span><b>Communication Skills</b></p>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 3 · Clean -->
+              <section class="nb-cell" data-cell="clean">
+                <div class="nb-gutter">[ ]:</div>
+                <div class="nb-body">
+                  <p class="nb-step">03 · clean</p>
+                  <h2 class="nb-h">From 1,318 extracted postings to 1,057 I could trust</h2>
+                  <p class="nb-why"><b>Before this:</b> I removed duplicates by link and by description text, kept only 80 data-related titles, and dropped skills that appeared just once. <b>Here:</b> every posting that remains has a monthly salary I can compare.</p>
+                  <div class="nb-out">
+                    <div class="nb-funnel" id="nb-funnel"></div>
+                  </div>
+                  <div class="nb-out">
+                    <figure class="nb-fig">
+                      <figcaption><div class="chart-title">What's left: average posted salary</div><div class="chart-sub">Midpoint of each posting's min–max range, monthly, ₱10K buckets</div></figcaption>
+                      <div class="nb-cols" data-cols="salary"></div>
+                    </figure>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 4 · Group -->
+              <section class="nb-cell" data-cell="group">
+                <div class="nb-gutter">[ ]:</div>
+                <div class="nb-body">
+                  <p class="nb-step">04 · group</p>
+                  <h2 class="nb-h">43 job titles, 6 role families</h2>
+                  <p class="nb-why"><b>Why cluster:</b> many titles had only a handful of postings, too few to learn a salary from. I embedded each title together with its skills using Sentence-BERT (all-MiniLM-L6-v2), ran K-Means for k = 2–14, chose k by silhouette score, and assigned each title to its majority cluster.</p>
+                  <div class="nb-out">
+                    <figure class="nb-fig">
+                      <figcaption><div class="chart-title">Every dot is about 10 postings</div><div class="chart-sub">Mixed together at first, then sorted into the clusters K-Means found</div></figcaption>
+                      <svg class="nb-dots" id="nb-dots" viewBox="0 0 600 220" aria-hidden="true"></svg>
+                      <ul class="nb-legend" id="nb-legend"></ul>
+                    </figure>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 5 · Model -->
+              <section class="nb-cell" data-cell="model">
+                <div class="nb-gutter">[ ]:</div>
+                <div class="nb-body">
+                  <p class="nb-step">05 · model</p>
+                  <h2 class="nb-h">Four models, one test set they never saw</h2>
+                  <p class="nb-why"><b>Features:</b> TF-IDF weights for the skills, plus role family, location, job type and a seniority level parsed from the title. A Random Forest ranked them, and I kept the top 150 after checking validation R² at every step of 10. <b>Tuning:</b> a 3-fold grid search inside a 5-fold cross-validation, both predicting min and max salary.</p>
+                  <div class="nb-out nb-grid2">
+                    <figure class="nb-fig">
+                      <figcaption><div class="chart-title">Split, stratified by role family</div><div class="chart-sub">The test set is used once, at the very end</div></figcaption>
+                      <div class="nb-split"><span style="--w:80">train 80%</span><span style="--w:10">val</span><span style="--w:10" class="test">test</span></div>
+                      <div class="nb-cv" aria-label="5-fold cross-validation: each fold holds out a different fifth">
+                        <p><i class="v"></i><i></i><i></i><i></i><i></i><span>fold 1</span></p>
+                        <p><i></i><i class="v"></i><i></i><i></i><i></i><span>fold 2</span></p>
+                        <p><i></i><i></i><i class="v"></i><i></i><i></i><span>fold 3</span></p>
+                        <p><i></i><i></i><i></i><i class="v"></i><i></i><span>fold 4</span></p>
+                        <p><i></i><i></i><i></i><i></i><i class="v"></i><span>fold 5</span></p>
+                      </div>
+                      <p class="chart-note"><i class="nb-key"></i> held-out fold · inside each fold, a 3-fold grid search tunes the trees</p>
+                    </figure>
+                    <figure class="chart nb-fig" data-chart="models"></figure>
+                  </div>
+                  <p class="nb-why nb-honest"><b>Reading it honestly:</b> XGBoost is off by about ₱17K on max salary, and an R² of 0.44 means postings explain less than half of the pay spread. Company, years of experience and negotiation aren't in the data.</p>
+                </div>
+              </section>
+
+              <!-- 6 · Value -->
+              <section class="nb-cell" data-cell="value">
+                <div class="nb-gutter">[ ]:</div>
+                <div class="nb-body">
+                  <p class="nb-step">06 · value</p>
+                  <h2 class="nb-h">Turning importance into pesos</h2>
+                  <p class="nb-why"><b>How:</b> I averaged XGBoost's feature importance across the min and max models, min-max scaled it, and multiplied by the average gap between posted max and min salary (₱61,102 − ₱44,853 = <b>₱16,249</b>). The top skill gets the full gap, and every other skill gets a share of it.</p>
+                  <div class="nb-out nb-grid2">
+                    <figure class="chart nb-fig" data-chart="value"></figure>
+                    <figure class="chart nb-fig" data-chart="roles"></figure>
+                  </div>
+                  <div class="nb-out nb-grid2">
+                    <figure class="chart nb-fig" data-chart="skills"></figure>
+                    <div class="nb-fig nb-callout">
+                      <p class="nb-big" data-count="99" data-suffix="%">99%</p>
+                      <p>of postings ask for communication skills. Ranked by demand, Excel and SQL lead. Ranked by value, niche data-platform skills like enrichment, loading, AWS DMS and Azure lead. What's common isn't what pays.</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 7 · Next -->
+              <section class="nb-cell" data-cell="next">
+                <div class="nb-gutter">[ ]:</div>
+                <div class="nb-body">
+                  <p class="nb-step">07 · next</p>
+                  <h2 class="nb-h">What I'd do differently</h2>
+                  <div class="nb-out nb-next">
+                    <article><span class="value-num">01</span><h3>Check the extraction</h3><p>Hand-label around 100 postings to measure how often the LLM adds or misses skills, like the inferred soft skills above.</p></article>
+                    <article><span class="value-num">02</span><h3>Widen the data</h3><p>Indeed alone, over four months, is one slice of the market. I'd add other job boards and a full year to see seasonality.</p></article>
+                    <article><span class="value-num">03</span><h3>Add experience</h3><p>Years required is in most descriptions but wasn't modeled. It's likely the biggest gap between an R² of 0.44 and a useful one.</p></article>
+                  </div>
+                  <p class="nb-why">Skill values reflect what the model relied on, not what causes a raise. Read them as signals, not guarantees.</p>
+                  <div class="nb-end links"><a href="#index" data-open="index">← Back to projects</a><a href="#" class="ph-link">[ Thesis paper ]</a></div>
+                </div>
               </section>
 
             </div>

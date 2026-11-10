@@ -3,6 +3,7 @@ const FILES = {
   index:     { name: 'index.html', icon: 'i-html',   lang: 'HTML' },
   assets:    { name: 'assets',     icon: 'i-folder', lang: 'Folder' },
   env:       { name: '.env',       icon: 'i-env',    lang: 'Properties' },
+  thesis:    { name: 'thesis.ipynb', icon: 'i-ipynb', lang: 'Jupyter Notebook' },
 };
 
 const tabsEl = document.getElementById('tabs');
@@ -164,7 +165,7 @@ function renderChart(el) {
     const bar = c.range
       ? `<span class="bar range" style="margin-left:${pct(r.lo)};width:${pct(r.hi - r.lo)}"></span>`
       : `<span class="bar${c.rows.some((x) => x.best) && !r.best ? ' muted' : ''}" style="width:${pct(r.v)}"></span>`;
-    return `<div class="bar-row" tabindex="0" data-i="${i}" aria-label="${r.label}: ${c.value(r)}">
+    return `<div class="bar-row" tabindex="0" data-i="${i}" style="--i:${i}" aria-label="${r.label}: ${c.value(r)}">
       <span class="bar-label" title="${r.label}">${r.label}</span>
       <span class="bar-track">${bar}<span class="bar-value">${c.value(r)}</span></span>
     </div>`;
@@ -199,6 +200,138 @@ document.addEventListener('focusin', (e) => {
   showTip(row, r.left + 120, r.top);
 });
 document.addEventListener('scroll', () => tip.classList.remove('show'), true);
+
+// ───────── thesis.ipynb: each cell "runs" when it scrolls into view ─────────
+// Values from the final thesis notebooks; the cleaning funnel was re-derived from Final Data Cleaned.xlsx
+const nb = document.querySelector('.nb');
+if (nb) {
+  nb.classList.add('nb-js');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 01 · Apify returns 238 columns per posting; these are the positions of the 9 the pipeline keeps
+  const KEPT = [11, 12, 13, 17, 18, 123, 131, 211, 236];
+  document.getElementById('nb-fields').innerHTML = Array.from({ length: 238 }, (_, i) => {
+    const k = KEPT.indexOf(i);
+    return k < 0 ? `<i style="--i:${i}"></i>` : `<i class="on" style="--i:${i};--k:${k}"></i>`;
+  }).join('');
+
+  // Column charts
+  const COLS = {
+    months: { rows: [['Nov', 108], ['Dec', 174], ['Jan', 271], ['Feb', 313], ['Mar', 191]] },
+    salary: {
+      dense: true, unit: 'postings',
+      rows: [['0', 2], ['10K', 58], ['20K', 180], ['30K', 187], ['40K', 113], ['50K', 93], ['60K', 108],
+        ['70K', 119], ['80K', 58], ['90K', 71], ['100K', 32], ['110K', 28], ['120K', 8]],
+    },
+  };
+  nb.querySelectorAll('[data-cols]').forEach((el) => {
+    const c = COLS[el.dataset.cols];
+    const max = Math.max(...c.rows.map((r) => r[1]));
+    el.classList.toggle('dense', !!c.dense);
+    el.innerHTML = c.rows.map(([label, v], i) =>
+      `<span class="nb-col${v === max ? ' peak' : ''}" style="--h:${(v / max) * 100}%;--i:${i}" title="₱${label}: ${v} ${c.unit || 'postings'}"><b></b><em>${v}</em></span>`).join('');
+    el.insertAdjacentHTML('afterend', `<div class="nb-cols-x">${c.rows.map(([l], i) =>
+      `<span>${c.dense && i % 2 ? '' : l}</span>`).join('')}</div>`);
+  });
+
+  // 03 · cleaning funnel
+  const FUNNEL = [
+    ['Postings with extracted skills', 1318],
+    ['Job title appears only once', 1292],
+    ['Hourly or daily pay', 1263],
+    ['No stated salary', 1111],
+    ['Above the 95th percentile (₱100K min / ₱150K max)', 1057],
+  ];
+  document.getElementById('nb-funnel').innerHTML = FUNNEL.map(([label, n], i) => `
+    <div class="nb-fun${i === FUNNEL.length - 1 ? ' last' : ''}">
+      <p class="nb-fun-label"><span>${label}</span><span>${i ? `−${FUNNEL[i - 1][1] - n}` : ''}</span></p>
+      <span class="nb-fun-track"><b style="--w:${(n / FUNNEL[0][1]) * 100}%;--i:${i}"></b></span>
+      <span class="nb-fun-n" data-count="${n}">${n.toLocaleString()}</span>
+    </div>`).join('');
+
+  // 04 · role families: ~10 postings per dot, shuffled in a grid, then sorted into stacks
+  const FAMILIES = [
+    ['Data Analyst', 380, 'var(--tok-tag)', 'Excel · SQL · analysis'],
+    ['Business Analyst', 303, 'var(--tok-type)', 'analysis · project management'],
+    ['Data Scientist', 128, 'var(--tok-key)', 'SQL · Python · ETL · modeling'],
+    ['Data Mgmt Specialist', 111, 'var(--tok-fn)', 'data · Excel · attention to detail'],
+    ['Financial Analyst', 78, 'var(--tok-str)', 'financial · Excel · reporting'],
+    ['Database Engineer', 57, 'var(--tok-var)', 'database · SQL · server'],
+  ];
+  const dots = FAMILIES.flatMap(([, n, color], g) => Array.from({ length: Math.round(n / 10) }, (_, j) => ({ g, j, color })));
+  let seed = 7;
+  const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const slots = dots.map((_, i) => i).sort(() => rand() - .5);
+  const dotsEl = document.getElementById('nb-dots');
+  dotsEl.innerHTML = dots.map(() => '<circle r="5"></circle>').join('');
+  const circles = [...dotsEl.children];
+  const mixDots = () => circles.forEach((c, i) => {
+    const s = slots[i];
+    c.style.transform = `translate(${30 + (s % 18) * 32}px, ${30 + Math.floor(s / 18) * 32}px)`;
+    c.style.fill = '#555';
+  });
+  const sortDots = () => circles.forEach((c, i) => {
+    const { g, j, color } = dots[i];
+    c.style.setProperty('--dc', `${200 + rand() * 300}ms`);
+    c.style.setProperty('--dl', `${700 + rand() * 400}ms`);
+    c.style.transform = `translate(${50 + g * 100 + ((j % 4) - 1.5) * 14}px, ${204 - Math.floor(j / 4) * 14}px)`;
+    c.style.fill = color;
+  });
+  mixDots();
+  document.getElementById('nb-legend').innerHTML = FAMILIES.map(([name, n, color, skills]) =>
+    `<li style="--c:${color}"><i></i><b>${name}</b><em>${n}</em><small>${skills}</small></li>`).join('');
+
+  // Execution: [ ] → [*] while running → [n], numbered in run order like Jupyter
+  const kernel = nb.closest('.pane').querySelector('.nb-kernel');
+  const cells = [...nb.querySelectorAll('.nb-title, .nb-cell')];
+  let execCount = 0, busy = 0;
+
+  const countUp = (el) => {
+    const end = +el.dataset.count, suffix = el.dataset.suffix || '', t0 = performance.now();
+    const tick = (t) => {
+      const k = Math.min((t - t0) / 900, 1);
+      el.textContent = Math.round(end * (1 - (1 - k) ** 3)).toLocaleString() + suffix;
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const run = (cell) => {
+    if (cell.classList.contains('ran')) return;
+    const gutter = cell.querySelector('.nb-gutter');
+    cell.classList.add('ran', 'running');
+    if (gutter) gutter.textContent = '[*]:';
+    kernel.classList.add('busy'); busy++;
+    if (!reduced) cell.querySelectorAll('[data-count]').forEach(countUp);
+    if (cell.contains(dotsEl)) sortDots();
+    setTimeout(() => {
+      cell.classList.remove('running');
+      if (gutter) gutter.textContent = `[${++execCount}]:`;
+      if (--busy === 0) kernel.classList.remove('busy');
+    }, 700);
+  };
+
+  // Runs once the cell's top is in the upper three-quarters of the view, or straight away if it's already above it
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting || e.boundingClientRect.bottom < 0) { run(e.target); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -25% 0px' });
+  const observeAll = () => (reduced ? cells.forEach(run) : cells.forEach((c) => io.observe(c)));
+  observeAll();
+
+  document.getElementById('nb-run-all').addEventListener('click', () => {
+    nb.classList.add('nb-reset');
+    cells.forEach((c) => {
+      c.classList.remove('ran', 'running');
+      const gutter = c.querySelector('.nb-gutter');
+      if (gutter) gutter.textContent = '[ ]:';
+    });
+    mixDots();
+    void nb.offsetHeight; // apply the reset with transitions off, then let them play again
+    nb.classList.remove('nb-reset');
+    io.disconnect();
+    observeAll();
+  });
+}
 
 // ───────── Hover-to-play project videos (tap to toggle on touch screens) ─────────
 document.querySelectorAll('.hover-video').forEach((video) => {
